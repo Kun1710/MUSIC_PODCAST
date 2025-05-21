@@ -2,10 +2,41 @@ import { AudioManager } from './audio.js';
 import { AudioVisual } from './visualizer.js';
 import { ControlsManager } from './controls.js';
 import { LyricsManager } from './lyrics.js';
+import { SONG_LIST } from './song.js';
 
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+const playlistName = getQueryParam('playlist');
+const songId = getQueryParam('song');
+let songList = [];
+let startIndex = 0;
+
+if (playlistName) {
+    // Trường hợp phát theo playlist
+    const playlists = JSON.parse(localStorage.getItem('playlists')) || [];
+    const playlist = playlists.find(p => p.name === playlistName);
+    if (playlist) {
+        songList = playlist.songs;
+    } else {
+        alert('Không tìm thấy playlist!');
+        songList = SONG_LIST;
+    }
+} else {
+    // Trường hợp phát 1 bài từ modal selection-music-playon
+    songList = SONG_LIST;
+}
+
+if (songId && songList.length > 0) {
+    const idx = songList.findIndex(song => String(song.id) === String(songId));
+    if (idx !== -1) startIndex = idx;
+}
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Khởi tạo các thành phần
-    const audioManager = new AudioManager();
+    const audioManager = new AudioManager(songList);
+    audioManager.currentIndex = startIndex;
     await audioManager.init();
 
     const visualizer = new AudioVisual('#music-canvas');

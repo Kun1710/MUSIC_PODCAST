@@ -1,7 +1,7 @@
-import { SONG_LIST } from './song.js';
+// import { SONG_LIST } from './song.js';
 
 export class AudioManager {
-    constructor(songList = SONG_LIST) {
+    constructor(songList) {
         this.songList = songList;
         this.currentIndex = 0;
         this.ac = new (window.AudioContext || window.webkitAudioContext)();

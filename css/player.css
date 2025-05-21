@@ -581,3 +581,33 @@
   transition: filter 0.3s ease;
   margin: 10px 0;
 }
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 900px) {
+  .info-widget {
+    width: 95vw;
+    height: auto;
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .info-widget #info-cover {
+    margin: 10px auto;
+    width: 70px;
+    height: 70px;
+  }
+
+  .progress-container {
+    width: 90vw;
+  }
+
+  .lyrics-container {
+    width: 95vw;
+    min-width: unset;
+    max-width: unset;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}

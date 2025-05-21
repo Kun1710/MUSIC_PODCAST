@@ -137,11 +137,7 @@ function renderMusicSelectionList(searchTerm = '') {
     if (song.duration) songTemplate.querySelector('.song-duration').textContent = song.duration;
 
     playButton.addEventListener('click', () => {
-      if (playlistName) {
-        window.location.href = `player.html?playlist=${encodeURIComponent(playlistName)}&song=${encodeURIComponent(song.id)}`;
-      } else {
-        window.location.href = `player.html?song=${encodeURIComponent(song.id)}`;
-      }
+      window.location.href = `player.html?song=${encodeURIComponent(song.id)}`;
     });
 
     songListContainer.appendChild(songTemplate);
@@ -289,6 +285,23 @@ function renderPlaylists() {
       open_info_list(playlist.name); // <-- Truyền đúng tên
     });
     playlistsContainer.appendChild(template);
+
+    document.querySelectorAll('.name-list').forEach(nameList => {
+      nameList.addEventListener('click', () => {
+        const playlistName = nameList.textContent.trim();
+        // Lấy playlist từ localStorage
+        const playlists = JSON.parse(localStorage.getItem('playlists')) || [];
+        const playlist = playlists.find(p => p.name === playlistName);
+        if (playlist && playlist.songs.length > 0) {
+          // Lấy id bài hát đầu tiên trong playlist
+          const firstSongId = playlist.songs[0].id;
+          window.location.href = `player.html?playlist=${encodeURIComponent(playlistName)}&song=${encodeURIComponent(firstSongId)}`;
+        } else {
+          // Nếu playlist không có bài hát thì chỉ chuyển với tên playlist
+          window.location.href = `player.html?playlist=${encodeURIComponent(playlistName)}`;
+        }
+      });
+    });
   });
 }
 // Gọi hàm renderPlaylists khi trang được tải
@@ -343,6 +356,16 @@ function open_info_list(playlistName) {
     songItem.querySelector('.song-title').textContent = song.title;
     songItem.querySelector('.song-artist').textContent = song.artist;
     if (song.duration) songItem.querySelector('.song-duration').textContent = song.duration;
+
+    songItem.querySelector('.song-text').addEventListener('click', () => {
+      window.location.href = `player.html?playlist=${encodeURIComponent(playlistName)}&song=${encodeURIComponent(song.id)}`;
+    });
+    // Gán sự kiện xóa, truyền object song đầy đủ
+    songItem.querySelector('.deleteSong').addEventListener('click', () => {
+      removeSongFromPlaylist(playlistName, song);
+      open_info_list(playlistName);
+    });
+
     container.appendChild(songItem);
   });
 
@@ -367,23 +390,6 @@ function open_info_list(playlistName) {
       }
     }, 300);
   });
-  document.querySelectorAll('.deleteSong').forEach(button => {
-    button.addEventListener('click', (e) => {
-      // Lấy tên playlist từ context của nút (hoặc từ dữ liệu)
-      const playlistName = document.getElementById('name-playlist').textContent;
-
-      // Lấy thông tin bài hát từ item trong modal
-      const songTitle = e.target.closest('.song-info').querySelector('.song-title').textContent;
-      const songArtist = e.target.closest('.song-info').querySelector('.song-artist').textContent;
-
-      const song = { title: songTitle, artist: songArtist };
-
-      // Gọi hàm xóa bài hát
-      removeSongFromPlaylist(playlistName, song);
-      open_info_list(playlistName);
-    });
-  });
-
 }
 
 // ------------------ Xóa playlist ------------------
@@ -421,8 +427,8 @@ function removeSongFromPlaylist(playlistName, song) {
 
   // Nếu tìm thấy playlist
   if (playlist) {
-    // Lọc bài hát muốn xóa dựa trên id
-    playlist.songs = playlist.songs.filter(item => item.id !== song.id);
+    // Lọc bài hát muốn xóa dựa trên id (so sánh dưới dạng string)
+    playlist.songs = playlist.songs.filter(item => String(item.id) !== String(song.id));
 
     // Cập nhật lại danh sách playlist vào localStorage
     localStorage.setItem('playlists', JSON.stringify(playlists));
@@ -500,13 +506,12 @@ function renderInfoList(playlistName, searchTerm = '') {
     if (song.duration) songItem.querySelector('.song-duration').textContent = song.duration;
 
     // Thêm sự kiện click cho nút xóa
-    songItem.querySelector('.deleteSong').addEventListener('click', (e) => {
+    songItem.querySelector('.deleteSong').addEventListener('click', () => {
       removeSongFromPlaylist(playlistName, song);
       renderInfoList(playlistName, searchTerm);
     });
-
-    // Thêm sự kiện click cho bài hát để phát
-    songItem.querySelector('.song-info').addEventListener('click', () => {
+    
+    songItem.querySelector('.song-text').addEventListener('click', () => {
       window.location.href = `player.html?playlist=${encodeURIComponent(playlistName)}&song=${encodeURIComponent(song.id)}`;
     });
 

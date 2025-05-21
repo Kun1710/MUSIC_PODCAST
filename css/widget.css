@@ -9,14 +9,14 @@
     top: 25%;
     left: -20px;
     padding: 20px 40px;
-    
+
     /* Kiểu dáng hiển thị */
     border-radius: 18px;
     background-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     overflow: hidden;
-    
+
     /* Hiệu ứng & tương tác */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: cardAppear 0.8s ease-out;
@@ -38,37 +38,40 @@
     height: 100%;
     position: relative;
 }
+
 .name-list {
-  position: absolute;
-  bottom: 10%;
-  left: 1%;
-  width: 80%;
-  padding: 20px 24px;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #fff;
-  background: rgba(151, 151, 151, 0.25);
-  border-radius: 12px;
-  backdrop-filter: blur(2px);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-  transition: background 0.3s ease;
+    position: absolute;
+    bottom: 10%;
+    left: 1%;
+    width: 80%;
+    padding: 20px 24px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(151, 151, 151, 0.25);
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    transition: background 0.3s ease;
 }
+
 .name-list:hover {
-  background: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.4);
 }
 
 /* ===== ẢNH BÌA ALBUM ===== */
-.list-widget .bg-image-list{
+.list-widget .bg-image-list {
     /* Vị trí */
     position: absolute;
     left: 88%;
     transform: translateX(-50%) rotate(-3deg);
     margin-top: 3px;
-    
+
     /* Kích thước */
     width: 90px;
     height: 90px;
-    
+
     /* Kiểu dáng hiển thị */
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -104,7 +107,7 @@
     z-index: 1;
 }
 
-.list-widget:hover .bg-image-list{
+.list-widget:hover .bg-image-list {
     transform: translateX(-50%) rotate(0deg) scale(1.05);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
@@ -136,13 +139,14 @@
 /* ===== WIDGET ĐIỀU KHIỂN (NÚT THÊM) ===== */
 .control-widget {
     position: absolute;
-    top: 5%; 
+    top: 5%;
     right: 10px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
+
 .addSongToPlayList {
     position: absolute;
-    top: 8%; 
+    top: 8%;
     left: 5%;
 
 }
@@ -175,7 +179,62 @@
     0% {
         transform: translateX(-100%) rotate(45deg);
     }
-    20%, 100% {
+
+    20%,
+    100% {
         transform: translateX(100%) rotate(45deg);
+    }
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 1024px) {
+    .list-widget {
+        width: 98vw;
+        height: 90px;
+        padding: 10px 10px;
+    }
+
+    .bg-image-list {
+        width: 60px !important;
+        height: 60px !important;
+        left: 90%;
+    }
+
+    .name-list {
+        font-size: 1.1rem;
+        padding: 10px 10px;
+        width: 70%;
+    }
+
+    .icon-group {
+        gap: 10px;
+        right: 2px;
+    }
+}
+
+@media (max-width: 600px) {
+    .list-widget {
+        width: 100vw;
+        height: auto;
+        padding: 6px 2px;
+        border-radius: 0;
+    }
+
+    .bg-image-list {
+        width: 40px !important;
+        height: 40px !important;
+        left: 85%;
+    }
+
+    .name-list {
+        font-size: 0.95rem;
+        padding: 6px 6px;
+        width: 65%;
+    }
+
+    .icon-group {
+        gap: 6px;
+        right: 2px;
     }
 }

@@ -1,0 +1,51 @@
+#music-lrc {
+    width: 100%;
+    transition: transform 0.5s ease;
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+#music-lrc p {
+    height: 40px;
+    line-height: 40px;
+    margin: 12px 0;
+    transition: all 0.5s ease;
+    opacity: 0.5;
+    transform: scale(0.9);
+    color: #fff;
+    font-size: 16px;
+}
+
+#music-lrc p.current {
+    font-size: 22px;
+    font-weight: bold;
+    opacity: 1;
+    transform: scale(1);
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#music-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    transition: filter 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.lyrics-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin: 20px 0;
+}

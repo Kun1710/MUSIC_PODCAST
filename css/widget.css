@@ -1,0 +1,181 @@
+/* ===== KHUNG CHỨA WIDGET ===== */
+.list-widget {
+    /* Vị trí & bố cục */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 960px;
+    height: 120px;
+    top: 25%;
+    left: -20px;
+    padding: 20px 40px;
+    
+    /* Kiểu dáng hiển thị */
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    
+    /* Hiệu ứng & tương tác */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: cardAppear 0.8s ease-out;
+    user-select: none;
+    z-index: 10;
+}
+
+.list-widget:hover {
+    transform: translateX(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== VÙNG NỘI DUNG CHÍNH ===== */
+.list-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.name-list {
+  position: absolute;
+  bottom: 10%;
+  left: 1%;
+  width: 80%;
+  padding: 20px 24px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(151, 151, 151, 0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(2px);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  transition: background 0.3s ease;
+}
+.name-list:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* ===== ẢNH BÌA ALBUM ===== */
+.list-widget .bg-image-list{
+    /* Vị trí */
+    position: absolute;
+    left: 88%;
+    transform: translateX(-50%) rotate(-3deg);
+    margin-top: 3px;
+    
+    /* Kích thước */
+    width: 90px;
+    height: 90px;
+    
+    /* Kiểu dáng hiển thị */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng cho ảnh bìa */
+.list-widget .bg-image-list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0.2) 100%);
+    z-index: 2;
+}
+
+.list-widget .bg-image-list::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(45deg);
+    animation: shineEffect 6s infinite;
+    z-index: 1;
+}
+
+.list-widget:hover .bg-image-list{
+    transform: translateX(-50%) rotate(0deg) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== NHÓM NÚT CHỨC NĂNG ===== */
+.icon-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-right: 5px;
+}
+
+/* ===== THANH CHÂN TRANG ===== */
+.footer-bar-widget {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+
+/* ===== WIDGET ĐIỀU KHIỂN (NÚT THÊM) ===== */
+.control-widget {
+    position: absolute;
+    top: 5%; 
+    right: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+.addSongToPlayList {
+    position: absolute;
+    top: 8%; 
+    left: 5%;
+
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.3s;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+    background-color: rgba(30, 185, 84, 0.4);
+}
+
+.control-btn i {
+    font-size: 20px;
+    color: white;
+}
+
+/* ===== HIỆU ỨNG CHUYỂN ĐỘNG ===== */
+@keyframes shineEffect {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    20%, 100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}

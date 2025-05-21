@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Thiết lập CSS  -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <link rel="stylesheet" href="./css/widget.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/player.css">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+
+    <title class="name-playlist">Phát Nhạc</title>
+</head>
+
+<body>
+    <div class="hover-zone"></div>
+    <div class="page-overlay"></div>
+    <header class="hidden-header">
+        <div class="animated-icon-title">
+            <i class="iconfont icon-music3 animated-icon"></i>
+            <span class="animated-title">Music by KUNT</span>
+        </div>
+        <nav class="hidden-nav">
+            <a href="index.html">Trang chủ</a>
+            <a href="#">Music</a>
+            <a href="#">Podcast</a>
+        </nav>
+    </header>
+    <div class="cursor"></div>
+    <div class="container-wrap">
+        <div id="bg" class="bg">
+            <video id="bg-background" autoplay muted loop>
+                <source src="./assets/bg/background_rain.mp4" type="video/mp4">
+            </video>
+        </div>
+        <!--  -->
+        <main class="card-body">
+            <div class="lyrics-container">
+                <div class="lyrics-content"></div>
+                <canvas id="music-canvas"></canvas>
+            </div>
+            <div class="info-widget">
+                <div class="progress-container">
+                    <div class="progress-bar" id="music-progress">
+                        <div class="progress-current"></div>
+                        <div class="progress-handle"></div>
+                    </div>
+                </div>
+                <div id="info-cover"></div>
+                <div class="info-text">
+                    <div class="info-text-title">
+                        <span id="song-name">Tên bài hát</span>
+                    </div>
+                    <div class="info-text-artist">
+                        <span id="song-artist">Nghệ sĩ</span>
+                    </div>
+                </div>
+                <div class="time-widget">
+                    <span id="time-minute">00</span>
+                    <span>:</span>
+                    <span id="time-second">00</span>
+                </div>
+                <div class="control-widget">
+                    <div class="control-btn" id="repeatBtn" title="Lặp lại">
+                        <i class="iconfont icon-repeat"></i>
+                    </div>
+                    <div class="control-btn" id="prevBtn" title="Phát bài trước">
+                        <i class="iconfont icon-previous"></i>
+                    </div>
+                    <div class="control-btn animation" id="playBtn" title="Phát nhạc">
+                        <i class="iconfont icon-playon"></i>
+                    </div>
+                    <div class="control-btn" id="nextBtn" title="Phát bài tiếp theo">
+                        <i class="iconfont icon-next"></i>
+                    </div>
+                    <div class="control-btn" id="shuffleBtn" title="Trộn bài">
+                        <i class="iconfont icon-shuffle"></i>
+                    </div>
+                    <div class="control-btn" id="volumeBtn" title="Âm lượng">
+                        <i class="iconfont icon-volume-3"></i>
+                    </div>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="100">
+                </div>
+            </div>
+        </main>
+
+        <!-- Phần script -->
+        <script type="module" src="./js/player.js"></script>
+        <script type="module" src="./js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Thiết lập CSS  -->
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/icon.css">
+  <link rel="stylesheet" href="./css/widget.css">
+  <link rel="stylesheet" href="./css/index.css">
+
+  <!-- Thiết lập Google Font  -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+
+  <title>My PlayList</title>
+</head>
+
+<body>
+  <div class="hover-zone"></div>
+  <div class="page-overlay"></div>
+  <header class="hidden-header">
+    <div class="animated-icon-title">
+      <i class="iconfont icon-music3 animated-icon"></i>
+      <span class="animated-title">Music by KUNT</span>
+    </div>
+    <nav class="hidden-nav">
+      <a href="index.html">Trang chủ</a>
+      <a href="#" id="music-link">Music</a>
+      <a href="#">Podcast</a>
+    </nav>
+  </header>
+  <!--Hiệu ứng chuột-->
+  <div class="cursor"></div>
+
+  <!-- Container chính -->
+  <div class="container-wrap">
+    <div id="bg" class="bg">
+      <video id="bg-background" autoplay muted loop>
+        <source src="./assets/bg/background_index.mp4" type="video/mp4">
+      </video>
+    </div>
+    <!-- Hiệu ứng snowflakes
+             <div class="snowflakes">
+                <div class="snow" id ="snow-1">
+                    <i class="iconfont icon-snowflake-1"></i>
+                </div>
+                <div class="snow" id ="snow-2">
+                    <i class="iconfont icon-snowflake-2"></i>
+                </div>
+                <div class="snow" id ="snow-3">
+                    <i class="iconfont icon-snowflake-3"></i>
+                </div>
+                <div class="snow" id ="snow-4">
+                    <i class="iconfont icon-snowflake-4"></i>
+                </div>
+                <div class="snow" id ="snow-5">
+                    <i class="iconfont icon-snowflake-5"></i>
+                </div>
+             </div>  -->
+    <div class="card-wrap">
+      <!-- Header -->
+      <header class="card-header">
+        <div class="card-header-title">
+          <i class="iconfont icon-music1"></i>
+          <span class="card-name">My PlayList</span>
+        </div>
+      </header>
+      <!-- Body -->
+      <div class="playlist-container" id="playlist-container"></div>
+      <template id="playlist-template">
+        <div class="list-widget">
+          <div class="list-content">
+            <div class="bg-image-list"></div>
+            <div class="name-list">
+              <span class="name-list"></span>
+            </div>
+            <div class="icon-group">
+              <div class="control-btn infoList" title="Thông tin">
+                <i class="iconfont icon-info-fill"></i>
+              </div>
+              <div class="control-btn deleteList" title="Xóa PlayList">
+                <i class="iconfont icon-delete"></i>
+              </div>
+            </div>
+          </div>
+          <div class="footer-bar-widget"></div>
+        </div>
+      </template>
+      <aside class="control-widget">
+        <div class="control-btn" id="add-play-list-btn" title="Tạo PlayList mới">
+          <i class="iconfont icon-add"></i>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="customAlert" class="alert-overlay hidden">
+    <div class="alert-box">
+      <p id="alertMessage">Thông báo</p>
+      <button id="alertOkBtn">OK</button>
+    </div>
+  </div>
+
+  <div class="modal" id="add-play-list">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3>Tạo Playlist Mới</h3>
+      <input type="text" id="playlist-name" placeholder="Nhập tên playlist..." autocomplete="off">
+      <button id="confirm-create" class="btn-primary" type="button">Tạo</button>
+    </div>
+  </div>
+
+  <!-- Modal chọn bài hát -->
+  <div class="modal" id="song-selection-modal">
+    <div class="modal-content" id="song-selection-content">
+      <span class="close-modal">&times;</span>
+      <h3>Chọn bài hát</h3>
+      <div class="search-container">
+        <input type="text" id="search-song-selection" placeholder="Tìm kiếm bài hát..." autocomplete="off">
+      </div>
+      <div class="song-list-container" id="song-list-container"></div>
+      <template id="song-template">
+        <div class="song-info">
+          <div class="song-text">
+            <span class="song-title">Bài hát</span>
+            <span class="song-artist">Nghệ sĩ</span>
+          </div>
+          <span class="song-duration"></span>
+          <div class="control-btn addSong" title="Thêm bài hát">
+            <i class="iconfont icon-add-song"></i>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- Modal danh sách bài hát trong playlist -->
+  <div class="modal" id="info-list-modal">
+    <div class="modal-content" id="info-list-content">
+      <span class="close-modal">&times;</span>
+      <h3 id="name-playlist">Tên playlist</h3>
+      <div class="search-container">
+        <input type="text" id="search-info-list" placeholder="Tìm kiếm bài hát..." autocomplete="off">
+      </div>
+      <div class="addSongToPlayList control-btn" title="Thêm bài hát mới vào playlist">
+        <i class="iconfont icon-add-music-c"></i>
+      </div>
+      <div class="info-list-container" id="info-list-container"></div>
+      <template id="song-list-template">
+        <div class="song-info">
+          <div class="song-text">
+            <span class="song-title">Bài hát</span>
+            <span class="song-artist">Nghệ sĩ</span>
+          </div>
+          <span class="song-duration"></span>
+          <div class="control-btn deleteSong" title="Xóa khỏi playlist">
+            <i class="iconfont icon-delete"></i>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- Modal music chọn bài nhạc để phát -->
+  <div class="modal" id="selection-music-playon">
+    <div class="modal-content" id="selection-music-playon-content">
+      <span class="close-modal">&times;</span>
+      <h3>Chọn bài hát để phát</h3>
+      <div class="search-container">
+        <input type="text" id="music-search" placeholder="Tìm kiếm bài hát..." autocomplete="off">
+      </div>
+      <div class="song-list-container" id="song-list-container-playon"></div>
+      <template id="song-template-playon">
+        <div class="song-info">
+          <div class="song-text">
+            <span class="song-title">Bài hát</span>
+            <span class="song-artist">Nghệ sĩ</span>
+          </div>
+          <span class="song-duration"></span>
+          <div class="control-btn playSong" title="Phát bài hát">
+            <i class="iconfont icon-playon"></i>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+  <!-- Modal chọn poacast để phát -->
+  <div class="modal" id="selection-podcast-playon">
+    <div class="modal-content" id="selection-podcast-playon-content">
+      <span class="close-modal">&times;</span>
+      <h3>Chọn podcast để phát</h3>
+      <div class="podcast-list-container" id="podcast-list-container-playon"></div>
+      <template id="podcast-template-playon">
+        <div class="podcast-info">
+          <div class="podcast-text">
+            <span class="podcast-title">Podcast</span>
+            <span class="podcast-artist">Nghệ sĩ</span>
+          </div>
+          <div class="control-btn playPodcast" title="Phát podcast">
+            <i class="iconfont icon-playon"></i>
+          </div>
+        </div>
+        <template>
+          <div class="podcast-text">
+            <span class="podcast-title">Podcast</span>
+            <span class="podcast-artist">Nghệ sĩ</span>
+          </div>
+          <div class="control-btn playPodcast" title="Phát podcast">
+            <i class="iconfont icon-playon"></i>
+          </div>
+        </template>
+      </template>
+    </div>
+  </div>
+  <div class="lyrics-container">
+    <canvas id="music-canvas"></canvas>
+    <div id="music-lrc"></div>
+  </div>
+  <script type="module" src="./js/index.js"></script>
+</body>
+
+</html>
